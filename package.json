@@ -20,14 +20,16 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "latest",
     "prettier": "2.8.7",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "sass": "^1.60.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint-prettier": "yarn prettier --write . ; yarn run eslint ."
+    "eslint-prettier": "yarn prettier --write . ; yarn run eslint .",
+    "sass-watch": "yarn sass --watch src/scss:public/css"
   },
   "eslintConfig": {
     "extends": [

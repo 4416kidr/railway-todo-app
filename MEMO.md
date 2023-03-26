@@ -59,8 +59,13 @@
   - `yarn add --dev sass`
   ```package.json
   "scripts": {
-    "sass": "sass src/scss:public/css", // scssファイルからcssファイルを生成
-    "sass-watch": "sass --watch src/scss:public/css" // 変更を検知して自動実行
+    "sass": "yarn sass src/scss:public/css", // scssファイルからcssファイルを生成
+    "sass-watch": "yarn sass --watch src/scss:public/css" // 変更を検知して自動実行
   }
   ```
 - [sass の記法(SCSS 構文)](https://qiita.com/takeshisakuma/items/1c40c42f61c6e751c0e3)
+- 対応方法
+  - `yarn add --dev sass`
+  - `sh my_sass.sh` 
+    - `my_sass.sh`: `scss`ファイルの生成から、`css`ファイルの生成までの手順を記したファイル
+      - 既存の`css`ファイルは`scss`記法に包含されているので、そのまま使う
