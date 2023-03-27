@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { Header } from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { url } from "../const";
 import "./newList.css";
 
@@ -23,7 +23,7 @@ export const NewList = () => {
           authorization: `Bearer ${cookies.token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
         navigate("/");
       })
       .catch((err) => {
@@ -54,6 +54,7 @@ export const NewList = () => {
             作成
           </button>
         </form>
+        <Link to="/">ホーム画面へ戻る</Link>
       </main>
     </div>
   );

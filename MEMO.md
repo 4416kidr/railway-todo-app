@@ -45,11 +45,6 @@
       "react/react-in-jsx-scope": "off"
     }
     ```
-- [ERROR in Plugin "react" was conflicted between ".eslintrc.json" and "BaseConfig"](https://github.com/facebook/create-react-app/issues/11825)
-  - [解決法](https://github.com/facebook/create-react-app/issues/11825#issuecomment-1002149573)
-    - `.eslintrc`の`plugins`から`react`を削除する
-    - `package.json`から`eslintConfig`を取り除く
-    - スレッドでは一応の解決はなされているよう
 
 # Station3
 
@@ -66,6 +61,41 @@
 - [sass の記法(SCSS 構文)](https://qiita.com/takeshisakuma/items/1c40c42f61c6e751c0e3)
 - 対応方法
   - `yarn add --dev sass`
-  - `sh my_sass.sh` 
+  - `sh my_sass.sh`
     - `my_sass.sh`: `scss`ファイルの生成から、`css`ファイルの生成までの手順を記したファイル
       - 既存の`css`ファイルは`scss`記法に包含されているので、そのまま使う
+
+# Staion4
+
+- .env について
+  - const.js から利用できるようになっている
+- [react-datepicker のドキュメント](https://reactdatepicker.com/)
+  - インストール: `yarn add react-datepicker`
+- API の使用について(`YYYY-MM-DDTHH:MM:SS`)
+  - [API の仕様書](https://app.swaggerhub.com/apis-docs/INFO_3/TODOApplication/1.0.0#/taskCreateRequest)の下のほうを見ると`Models/taskCreateRequest`がある
+  - そこの limit をみると指定されている型は`string`であることがわかる
+  - また、`YYYY-MM-DDTHH:MM:SS`は ISO8601 形式であるので、js`Date型`を ISO8601 形式の`string`に変換してくれる`Date.prototype.toISOString()`を使えばよい
+    - [Date.prototype.toISOString()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+
+# エラーへの対処
+
+- [ERROR in Plugin "react" was conflicted between ".eslintrc.json" and "BaseConfig"](https://github.com/facebook/create-react-app/issues/11825)
+  - [解決法](https://github.com/facebook/create-react-app/issues/11825#issuecomment-1002149573)
+    - `.eslintrc`の`plugins`から`react`を削除する
+    - `package.json`から`eslintConfig`を取り除く
+    - スレッドでは一応の解決はなされているよう
+- [ERROR in Plugin "react" was conflicted between ".eslintrc.json" and "BaseConfig"](https://github.com/reactjs/react.dev/issues/4186)
+  - 対処法: `package.json`を再保存する
+    - 効かない場合がある
+  - `plugin:react/recommended`を`.eslintrc`から削除する
+- 以上の対策を行った後以下の手順で、パッケージを再インストールした
+  - `rm -r node_module`
+  - `yarn install`
+- `.eslintrc.js`の`extends`に`plugin:react/recommended`があるせいで上記のエラーが出ているように見える
+  - 一方で、その行を削除すると以下のエラーが出る
+    - `App.js`の 6 行目で`<`が`Unexpected token`だといわれる
+- [conflict](https://github.com/jsx-eslint/eslint-plugin-react/issues/3128)
+  - 解決方法として、`yarn.lock`を削除してから、`yarn install`を白とあるので、実行してみた
+    - 結果、いくつかエラーが出たが、うまく動作している
+    - [`ERROR: is missing in props validation`](https://cpoint-lab.co.jp/article/202107/20531/)
+      - `.eslintrc.js`の`rules`に`"react/prop-types": "off"`を追加すればよい

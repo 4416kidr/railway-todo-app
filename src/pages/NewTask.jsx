@@ -4,7 +4,10 @@ import axios from "axios";
 import { url } from "../const";
 import { Header } from "../components/Header";
 import "./newTask.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
@@ -12,16 +15,19 @@ export const NewTask = () => {
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
   const onCreateTask = () => {
+    const iso_time = startDate.toISOString();
     const data = {
       title: title,
       detail: detail,
       done: false,
+      limit: iso_time,
     };
 
     axios
@@ -30,7 +36,7 @@ export const NewTask = () => {
           authorization: `Bearer ${cookies.token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
         navigate("/");
       })
       .catch((err) => {
@@ -90,6 +96,19 @@ export const NewTask = () => {
             className="new-task-detail"
           />
           <br />
+          <label>日付</label>
+          <br />
+          <DatePicker
+            showIcon
+            selected={startDate}
+            onChange={(date) => {
+              setStartDate(date);
+            }}
+            timeInputLabel="Time:"
+            dateFormat="yyyy/MM/dd"
+            showTimeInput
+          />
+          <br />
           <button
             type="button"
             className="new-task-button"
@@ -98,6 +117,7 @@ export const NewTask = () => {
             作成
           </button>
         </form>
+        <Link to="/">Topへ戻る</Link>
       </main>
     </div>
   );
