@@ -64,6 +64,7 @@
   - `sh my_sass.sh`
     - `my_sass.sh`: `scss`ファイルの生成から、`css`ファイルの生成までの手順を記したファイル
       - 既存の`css`ファイルは`scss`記法に包含されているので、そのまま使う
+- css を利用しているすべてのファイルにおいて、新たに作成した`scss`ファイルを`import`するようにパスを変更する
 
 # Staion4
 
@@ -76,6 +77,9 @@
   - そこの limit をみると指定されている型は`string`であることがわかる
   - また、`YYYY-MM-DDTHH:MM:SS`は ISO8601 形式であるので、js`Date型`を ISO8601 形式の`string`に変換してくれる`Date.prototype.toISOString()`を使えばよい
     - [Date.prototype.toISOString()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+## EditTask.jsx
+- DatePickerの`selected`にAPIから渡されたlimitを直接使うと、表示するときに型が違うというエラーが出る
+  - 対処方法: `Date.parse()`でAPIから渡されたものを`string`型から`Date`型へと変換する
 
 # エラーへの対処
 

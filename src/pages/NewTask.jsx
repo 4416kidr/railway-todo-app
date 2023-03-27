@@ -3,12 +3,10 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { url } from "../const";
 import { Header } from "../components/Header";
-import "./newTask.css";
-import { Link, useNavigate } from "react-router-dom";
+import "../scss/newTask.scss";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
-
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
   const [lists, setLists] = useState([]);
@@ -105,7 +103,7 @@ export const NewTask = () => {
               setStartDate(date);
             }}
             timeInputLabel="Time:"
-            dateFormat="yyyy/MM/dd"
+            dateFormat="yyyy/MM/dd hh:mm:ss"
             showTimeInput
           />
           <br />
@@ -117,7 +115,6 @@ export const NewTask = () => {
             作成
           </button>
         </form>
-        <Link to="/">Topへ戻る</Link>
       </main>
     </div>
   );

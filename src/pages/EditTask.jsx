@@ -4,7 +4,9 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { url } from "../const";
 import { useNavigate, useParams } from "react-router-dom";
-import "./editTask.css";
+import "../scss/editTask.scss";
+import DataPicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const EditTask = () => {
   const navigate = useNavigate();
@@ -14,15 +16,17 @@ export const EditTask = () => {
   const [detail, setDetail] = useState("");
   const [isDone, setIsDone] = useState();
   const [errorMessage, setErrorMessage] = useState("");
+  const [limitDate, setLimitDate] = useState(new Date());
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
   const onUpdateTask = () => {
-    console.log(isDone);
+    const iso_time = limitDate.toISOString();
     const data = {
       title: title,
       detail: detail,
       done: isDone,
+      limit: iso_time,
     };
 
     axios
@@ -67,6 +71,7 @@ export const EditTask = () => {
         setTitle(task.title);
         setDetail(task.detail);
         setIsDone(task.done);
+        setLimitDate(Date.parse(task.limit));
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -118,6 +123,15 @@ export const EditTask = () => {
             />
             完了
           </div>
+          <br />
+          <DataPicker
+            showIcon
+            selected={limitDate}
+            onChange={(date) => setLimitDate(date)}
+            timeInputLabel="Time:"
+            dateFormat="yyyy/MM/dd hh:mm:ss"
+            showTimeInput
+          />
           <button
             type="button"
             className="delete-task-button"

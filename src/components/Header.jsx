@@ -1,9 +1,9 @@
 import React from "react";
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signOut } from "../authSlice";
-import "./header.css";
+import "../scss/header.scss";
 
 export const Header = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -20,9 +20,14 @@ export const Header = () => {
     <header className="header">
       <h1>Todoアプリ</h1>
       {auth ? (
-        <button onClick={handleSignOut} className="sign-out-button">
-          サインアウト
-        </button>
+        <>
+          <button onClick={handleSignOut} className="sign-out-button">
+            サインアウト
+          </button>
+          <Link to="/" className="link-to-home">
+            Home画面に戻る
+          </Link>
+        </>
       ) : (
         <></>
       )}

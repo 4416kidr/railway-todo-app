@@ -54,7 +54,7 @@ export const Router = () => {
             }
           />
         </Route>
-        <Route element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
