@@ -5,6 +5,8 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import { url } from "../const";
 import "../scss/home.scss";
+import { intervalToDuration, formatDuration, format, isAfter } from "date-fns";
+import {ja} from "date-fns/locale";
 
 export const Home = () => {
   const [isDoneDisplay, setIsDoneDisplay] = useState("todo"); // todo->未完了 done->完了
@@ -12,6 +14,8 @@ export const Home = () => {
   const [selectListId, setSelectListId] = useState();
   const [tasks, setTasks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [nowTime, setNowTime] = useState(new Date());
+  const updateInterval = 1;
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
   useEffect(() => {
@@ -47,6 +51,12 @@ export const Home = () => {
         });
     }
   }, [lists]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setNowTime(new Date())
+    },updateInterval*1000);
+  }, [])
 
   const handleSelectList = (id) => {
     setSelectListId(id);
@@ -122,39 +132,29 @@ export const Home = () => {
   );
 };
 
+const MinFormat = (limit) => {
+  const start = new Date(limit);
+  const end = new Date();
+  const duration = intervalToDuration({start, end});
+  const formatted = formatDuration(duration, {
+    format: ["years", "months", "days", "hours", "minutes", "seconds"],
+    locale: ja,
+  });
+  if (!isAfter(start, end)) return `経過: ${formatted}`
+  return `残り: ${formatted}`;
+}
+
 // 表示するタスク
 const Tasks = (props) => {
   const { tasks, selectListId, isDoneDisplay } = props;
   if (tasks === null) return <></>;
 
-  if (isDoneDisplay == "done") {
-    return (
-      <ul>
-        {tasks
-          .filter((task) => {
-            return task.done === true;
-          })
-          .map((task, key) => (
-            <li key={key} className="task-item">
-              <Link
-                to={`/lists/${selectListId}/tasks/${task.id}`}
-                className="task-item-link"
-              >
-                {task.title}
-                <br />
-                {task.done ? "完了" : "未完了"}
-              </Link>
-            </li>
-          ))}
-      </ul>
-    );
-  }
-
+  const doDisplay = isDoneDisplay == "done";
   return (
     <ul>
       {tasks
         .filter((task) => {
-          return task.done === false;
+          return task.done === doDisplay;
         })
         .map((task, key) => (
           <li key={key} className="task-item">
@@ -162,9 +162,10 @@ const Tasks = (props) => {
               to={`/lists/${selectListId}/tasks/${task.id}`}
               className="task-item-link"
             >
-              {task.title}
-              <br />
-              {task.done ? "完了" : "未完了"}
+              <p className="task-title">{`タイトル: ${task.title}`}</p>
+              <p className="task-done">{task.done ? "完了" : "未完了"}</p>
+              <p className="task-limit">{`期限: ${format(new Date(task.limit), "yyyy/MM/dd HH:mm")}`}</p>
+              <p className="task-limit-duration">{MinFormat(task.limit)}</p>
             </Link>
           </li>
         ))}

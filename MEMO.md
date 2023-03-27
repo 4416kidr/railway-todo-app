@@ -70,16 +70,27 @@
 
 - .env について
   - const.js から利用できるようになっている
+## NewTask.jsx
 - [react-datepicker のドキュメント](https://reactdatepicker.com/)
   - インストール: `yarn add react-datepicker`
-- API の使用について(`YYYY-MM-DDTHH:MM:SS`)
-  - [API の仕様書](https://app.swaggerhub.com/apis-docs/INFO_3/TODOApplication/1.0.0#/taskCreateRequest)の下のほうを見ると`Models/taskCreateRequest`がある
-  - そこの limit をみると指定されている型は`string`であることがわかる
-  - また、`YYYY-MM-DDTHH:MM:SS`は ISO8601 形式であるので、js`Date型`を ISO8601 形式の`string`に変換してくれる`Date.prototype.toISOString()`を使えばよい
-    - [Date.prototype.toISOString()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+- APIについて(`YYYY-MM-DDTHH:MM:SS`)
+  - 下のほうを見ると`Models/taskCreateRequest`がある
+  - そこの`limit`をみると指定されている型は`string`であることがわかる
+  - また、`YYYY-MM-DDTHH:MM:SS`はISO8601形式であるので、jsの`Date型`を ISO8601 形式の`string`に変換してくれる`Date.prototype.toISOString()`を使えばよい
+- [React Datepicker実装パターン](https://qiita.com/buto/items/c6e875aeb4d2c7e25969)
+  - `<DatePicker />`を用いる
+  - `import "react-datepicker/dist/react-datepicker.css"`も必要
 ## EditTask.jsx
-- DatePickerの`selected`にAPIから渡されたlimitを直接使うと、表示するときに型が違うというエラーが出る
-  - 対処方法: `Date.parse()`でAPIから渡されたものを`string`型から`Date`型へと変換する
+- APIから取得した時刻の文字列は`new Date()`で`date`型へ変換する
+## Home.jsx
+- [date-fns公式](https://date-fns.org/)
+  - `yarn add --dev date-fns`
+- [date-fnsを使って 日本語で「X年Xヶ月」を返す関数（コピペ用）](https://qiita.com/sota_yamaguchi/items/305374535aeb0ffd450a)
+  - `formatInterval`と`formatDuration`を用いることで、自作せずに実装可能
+- [デジタル時計の実装方法](https://feeld-uni.com/?p=2354)
+  - `useState`で現在時刻を管理する
+  - `useEffect`と`setInterval`で現在時刻を任意間隔で更新する
+  - `useState`が更新されたら、それを用いているものすべてが更新される
 
 # エラーへの対処
 
@@ -99,7 +110,7 @@
   - 一方で、その行を削除すると以下のエラーが出る
     - `App.js`の 6 行目で`<`が`Unexpected token`だといわれる
 - [conflict](https://github.com/jsx-eslint/eslint-plugin-react/issues/3128)
-  - 解決方法として、`yarn.lock`を削除してから、`yarn install`を白とあるので、実行してみた
+  - 解決方法として、`yarn.lock`を削除してから、`yarn install`をしろとあるので、実行してみた
     - 結果、いくつかエラーが出たが、うまく動作している
     - [`ERROR: is missing in props validation`](https://cpoint-lab.co.jp/article/202107/20531/)
       - `.eslintrc.js`の`rules`に`"react/prop-types": "off"`を追加すればよい

@@ -71,7 +71,7 @@ export const EditTask = () => {
         setTitle(task.title);
         setDetail(task.detail);
         setIsDone(task.done);
-        setLimitDate(Date.parse(task.limit));
+        setLimitDate(new Date(task.limit));
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);

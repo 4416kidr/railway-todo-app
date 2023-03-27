@@ -13,14 +13,14 @@ export const NewTask = () => {
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+  const [limitDate, setLimitDate] = useState(new Date());
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
   const onCreateTask = () => {
-    const iso_time = startDate.toISOString();
+    const iso_time = limitDate.toISOString();
     const data = {
       title: title,
       detail: detail,
@@ -98,9 +98,9 @@ export const NewTask = () => {
           <br />
           <DatePicker
             showIcon
-            selected={startDate}
+            selected={limitDate}
             onChange={(date) => {
-              setStartDate(date);
+              setLimitDate(date);
             }}
             timeInputLabel="Time:"
             dateFormat="yyyy/MM/dd hh:mm:ss"
