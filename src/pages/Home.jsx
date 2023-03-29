@@ -133,14 +133,14 @@ export const Home = () => {
 };
 
 const MinFormat = (limit) => {
-  const start = new Date(limit);
-  const end = new Date();
+  const start = nowTime;
+  const end = new Date(limit);
   const duration = intervalToDuration({start, end});
   const formatted = formatDuration(duration, {
     format: ["years", "months", "days", "hours", "minutes", "seconds"],
     locale: ja,
   });
-  if (!isAfter(start, end)) return `経過: ${formatted}`
+  if (isAfter(start, end)) return `経過: ${formatted}`
   return `残り: ${formatted}`;
 }
 

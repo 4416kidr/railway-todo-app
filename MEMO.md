@@ -114,3 +114,17 @@
     - 結果、いくつかエラーが出たが、うまく動作している
     - [`ERROR: is missing in props validation`](https://cpoint-lab.co.jp/article/202107/20531/)
       - `.eslintrc.js`の`rules`に`"react/prop-types": "off"`を追加すればよい
+
+# FEEDBACK
+## Station2-4
+- `.js`の`css`の`import`文を`scss`へ変更する
+- Home.jsx
+  - nowTimeが使われていない
+    - L137の`MinFormat`内の`start`に`nowTime`を用いる
+  - 関数`MinFormat`内の`start`と`end`を入れ替える
+- publicフォルダについて
+  - nativeのjsなどでは.jsではないようなファイルを置く場所
+    - `React`では、`css`などは`src`フォルダ内でよいが、`native`では`public`フォルダに入れる
+  - 今回、`scss`の生成物を`public/css`フォルダに置いたが、`React`では不要
+
+
