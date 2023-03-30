@@ -21,18 +21,21 @@
 
 .list-tab-item {
   flex-shrink: 0;
-  width: 100px;
+  width: 120px;
   padding: 0 25px;
   text-overflow: normal;
   margin-right: 5px;
   border: solid 1px #242f9b;
   justify-content: center;
   align-items: center;
-}
-
-.active {
-  background-color: #242f9b;
-  color: #ffffff;
+  font-size: 16px;
+  &:focus {
+    border: solid 2px red;
+  }
+  &.active {
+    background-color: #242f9b;
+    color: #ffffff;
+  }
 }
 
 .tasks {

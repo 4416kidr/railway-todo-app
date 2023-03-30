@@ -24,9 +24,11 @@ export const Header = () => {
           <button onClick={handleSignOut} className="sign-out-button">
             サインアウト
           </button>
-          <Link to="/" className="link-to-home">
-            Home画面に戻る
-          </Link>
+          <button>
+            <Link to="/" className="link-to-home">
+              Home画面に戻る
+            </Link>
+          </button>
         </>
       ) : (
         <></>

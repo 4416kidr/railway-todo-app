@@ -70,22 +70,28 @@
 
 - .env について
   - const.js から利用できるようになっている
+
 ## NewTask.jsx
+
 - [react-datepicker のドキュメント](https://reactdatepicker.com/)
   - インストール: `yarn add react-datepicker`
-- APIについて(`YYYY-MM-DDTHH:MM:SS`)
+- API について(`YYYY-MM-DDTHH:MM:SS`)
   - 下のほうを見ると`Models/taskCreateRequest`がある
   - そこの`limit`をみると指定されている型は`string`であることがわかる
-  - また、`YYYY-MM-DDTHH:MM:SS`はISO8601形式であるので、jsの`Date型`を ISO8601 形式の`string`に変換してくれる`Date.prototype.toISOString()`を使えばよい
-- [React Datepicker実装パターン](https://qiita.com/buto/items/c6e875aeb4d2c7e25969)
+  - また、`YYYY-MM-DDTHH:MM:SS`は ISO8601 形式であるので、js の`Date型`を ISO8601 形式の`string`に変換してくれる`Date.prototype.toISOString()`を使えばよい
+- [React Datepicker 実装パターン](https://qiita.com/buto/items/c6e875aeb4d2c7e25969)
   - `<DatePicker />`を用いる
   - `import "react-datepicker/dist/react-datepicker.css"`も必要
+
 ## EditTask.jsx
-- APIから取得した時刻の文字列は`new Date()`で`date`型へ変換する
+
+- API から取得した時刻の文字列は`new Date()`で`date`型へ変換する
+
 ## Home.jsx
-- [date-fns公式](https://date-fns.org/)
+
+- [date-fns 公式](https://date-fns.org/)
   - `yarn add --dev date-fns`
-- [date-fnsを使って 日本語で「X年Xヶ月」を返す関数（コピペ用）](https://qiita.com/sota_yamaguchi/items/305374535aeb0ffd450a)
+- [date-fns を使って 日本語で「X 年 X ヶ月」を返す関数（コピペ用）](https://qiita.com/sota_yamaguchi/items/305374535aeb0ffd450a)
   - `formatInterval`と`formatDuration`を用いることで、自作せずに実装可能
 - [デジタル時計の実装方法](https://feeld-uni.com/?p=2354)
   - `useState`で現在時刻を管理する
@@ -115,16 +121,27 @@
     - [`ERROR: is missing in props validation`](https://cpoint-lab.co.jp/article/202107/20531/)
       - `.eslintrc.js`の`rules`に`"react/prop-types": "off"`を追加すればよい
 
+# Station5
+
+## WAI-ARIA
+
+- [WAI-ARIA(ウェイ・アリア)](https://developer.mozilla.org/ja/docs/Learn/Accessibility/WAI-ARIA_basics)はブラウザや支援技術が認識できる意味論を追加することで、アクセシビリティを向上させるもの
+  - つまり、HTML をさらに進化させてアクセシビリティを向上させる
+- [ARIA:tab ロール](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Roles/tab_role)
+  - ![具体例](https://b-risk.jp/wp/wp-content/uploads/2021/05/Videotogif-1.gif)
+    - [BRISK より引用](https://b-risk.jp/blog/2021/07/wai_aria/#i-4)
+  - `role="tablist"`以下を利用した
+
 # FEEDBACK
+
 ## Station2-4
+
 - `.js`の`css`の`import`文を`scss`へ変更する
 - Home.jsx
-  - nowTimeが使われていない
-    - L137の`MinFormat`内の`start`に`nowTime`を用いる
+  - nowTime が使われていない
+    - L137 の`MinFormat`内の`start`に`nowTime`を用いる
   - 関数`MinFormat`内の`start`と`end`を入れ替える
-- publicフォルダについて
-  - nativeのjsなどでは.jsではないようなファイルを置く場所
+- public フォルダについて
+  - native の js などでは.js ではないようなファイルを置く場所
     - `React`では、`css`などは`src`フォルダ内でよいが、`native`では`public`フォルダに入れる
   - 今回、`scss`の生成物を`public/css`フォルダに置いたが、`React`では不要
-
-
