@@ -18,9 +18,9 @@ export const Header = () => {
 
   return (
     <header className="header">
-      <h1>Todoアプリ</h1>
+      <h1 className="title">Todoアプリ</h1>
       {auth ? (
-        <>
+        <div className="buttons">
           <button onClick={handleSignOut} className="sign-out-button">
             サインアウト
           </button>
@@ -29,7 +29,7 @@ export const Header = () => {
               Home画面に戻る
             </Link>
           </button>
-        </>
+        </div>
       ) : (
         <></>
       )}

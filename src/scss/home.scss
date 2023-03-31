@@ -1,7 +1,7 @@
 .taskList {
   margin: 50px auto;
   list-style: none;
-  width: 1000px;
+  width: 100%;
 }
 
 .list-header {
@@ -47,6 +47,13 @@
   justify-content: space-between;
 }
 
+.task-items {
+  display: flex;
+  @media screen and (min-width: 320px) and (max-width: 768px) {
+    display: block;
+  }
+}
+
 .task-item {
   list-style-type: none;
   height: fit-content;
@@ -56,6 +63,7 @@
   font-size: large;
   border: solid 5px #ffffff;
   padding: 10px;
+
   p {
     color: black;
     display: block;

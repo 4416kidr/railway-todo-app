@@ -9,12 +9,39 @@
   justify-content: space-between;
 }
 
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 10px;
+}
+
+.buttons {
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  @media screen and (min-width:320px) and (max-width: 768px) {
+    margin: auto 5px;
+    color: red;
+    width: 115px;
+    display: inline-block;
+  }
+}
+
 .sign-out-button {
   color: #ffffff;
-  margin: auto 25px auto auto;
+  margin: 0 5px;
+  @media screen and (min-width:320px) and (max-width: 768px) {
+    margin: 0 5px;
+    color: red;
+  }
 }
 
 .link-to-home {
   color: #ffffff;
-  margin: auto 25px auto auto;
+  margin: 0 5px;
+  @media screen and (min-width:320px) and (max-width: 768px) {
+    margin: 0 5px;
+    color: red;
+  }
 }

@@ -29,7 +29,7 @@ export const HomeTasks = (props) => {
   };
 
   return (
-    <ul>
+    <ul className="task-items">
       {tasks
         .filter((task) => {
           return task.done === doDisplay;
